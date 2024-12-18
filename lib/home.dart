@@ -1,6 +1,11 @@
+// This file contains the implementation of the Home screen, which is the main screen of the Split Bill Calculator app.
+// It includes the UI for inputting the bill amount, number of people, tip percentage, and displaying the total per person.
+
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _SplitBillState createState() => _SplitBillState();
 }
@@ -104,7 +109,8 @@ class _SplitBillState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                       child: TextField(
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         obscureText: false,
                         textAlign: TextAlign.start,
                         maxLines: 1,
@@ -117,15 +123,18 @@ class _SplitBillState extends State<Home> {
                         decoration: InputDecoration(
                           disabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0),
-                            borderSide: const BorderSide(color: Color(0x5d000000), width: 1),
+                            borderSide: const BorderSide(
+                                color: Color(0x5d000000), width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0),
-                            borderSide: const BorderSide(color: Color(0x5d000000), width: 1),
+                            borderSide: const BorderSide(
+                                color: Color(0x5d000000), width: 1),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0),
-                            borderSide: const BorderSide(color: Color(0x5d000000), width: 1),
+                            borderSide: const BorderSide(
+                                color: Color(0x5d000000), width: 1),
                           ),
                           hintText: "Bill Amount",
                           hintStyle: const TextStyle(
@@ -137,8 +146,10 @@ class _SplitBillState extends State<Home> {
                           filled: true,
                           fillColor: const Color(0xfff2f2f3),
                           isDense: false,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                          prefixIcon: const Icon(Icons.attach_money, color: Color(0xff212435), size: 24),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 12),
+                          prefixIcon: const Icon(Icons.attach_money,
+                              color: Color(0xff212435), size: 24),
                         ),
                         onChanged: (String value) {
                           try {
@@ -187,7 +198,8 @@ class _SplitBillState extends State<Home> {
                                   color: const Color(0x1e740db6),
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(7.0),
-                                  border: Border.all(color: const Color(0x4d9e9e9e), width: 1),
+                                  border: Border.all(
+                                      color: const Color(0x4d9e9e9e), width: 1),
                                 ),
                                 child: const Icon(
                                   Icons.remove,
@@ -197,7 +209,8 @@ class _SplitBillState extends State<Home> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 5),
                               child: Text(
                                 "$_numberPerson",
                                 textAlign: TextAlign.center,
@@ -213,7 +226,7 @@ class _SplitBillState extends State<Home> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                    _numberPerson++;
+                                  _numberPerson++;
                                 });
                               },
                               child: Container(
@@ -225,7 +238,8 @@ class _SplitBillState extends State<Home> {
                                   color: const Color(0x1e740db6),
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(7.0),
-                                  border: Border.all(color: const Color(0x4d9e9e9e), width: 1),
+                                  border: Border.all(
+                                      color: const Color(0x4d9e9e9e), width: 1),
                                 ),
                                 child: const Icon(
                                   Icons.add,
@@ -255,7 +269,8 @@ class _SplitBillState extends State<Home> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 18, horizontal: 0),
                           child: Text(
                             "\$ ${(calculateTipAmount(_billAmount, _tipPercent)).toStringAsFixed(2)}",
                             textAlign: TextAlign.start,
@@ -311,7 +326,7 @@ class _SplitBillState extends State<Home> {
     );
   }
 
-  computeTotalPerPerson(double billAmount,  int splitPerson, int tipPercentage) {
+  computeTotalPerPerson(double billAmount, int splitPerson, int tipPercentage) {
     double tipAmount = calculateTipAmount(billAmount, tipPercentage);
     double totalPerPerson = (billAmount + tipAmount) / splitPerson;
 
@@ -320,8 +335,7 @@ class _SplitBillState extends State<Home> {
 
   calculateTipAmount(double billAmount, int tipPercentage) {
     double tipAmount = 0.0;
-    if(billAmount < 0 || billAmount.toString().isEmpty || billAmount == null) {
-
+    if (billAmount < 0 || billAmount.toString().isEmpty) {
     } else {
       tipAmount = (billAmount * tipPercentage) / 100;
     }
